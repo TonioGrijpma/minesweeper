@@ -32,6 +32,9 @@ function onGameMouseUp(ev){
 	if(isGameOver){
 		return;
 	}
+	if(isFirstClick){
+		startTimer();
+	}
 
 	setSmiley("🙂");
 
@@ -59,6 +62,9 @@ function onGameMouseMove(ev){
 	}
 
 	if(cell == null){
+		return;
+	}
+	if(unlocked[point.y][point.x]){
 		return;
 	}
 	
@@ -133,10 +139,14 @@ function placeFlag(x, y){
 			return;
 		}
 
-		flags.push({x: x, y: y});
 		createIcon(x, y, 11);
+		flags.push({x: x, y: y});
 	}else{
 		removeFlag(x, y);
+
+		removeOverlay(x, y);
+		document.getElementById("game-body").appendChild(createCell(x, y))
+		unlocked[y][x] = false;
 	}
 
 	setDisplay(true, mines - flags.length);
@@ -158,10 +168,6 @@ function removeFlag(x, y){
 			flags.splice(i, 1)
 		}
 	}
-
-	removeOverlay(x, y);
-	document.getElementById("game-body").appendChild(createCell(x, y))
-	unlocked[y][x] = false;
 }
 function getPointFromEvent(event){
 	let x = Math.floor((event.pageX - event.currentTarget.offsetLeft) / CELLSIZE);
@@ -223,7 +229,15 @@ function createCell(x, y){
 // < 9 number | 9 exploded bomb | 10 bomb | 11 flag
 function createIcon(x, y, value = game[y][x]){
 	getCell(x, y).remove();
-	unlocked[y][x] = true;
+
+	if(value != 11){
+		unlocked[y][x] = true;
+	}
+
+	// if a flag already exists on this location, remove it
+	if(flagExist(x, y)){
+		removeFlag(x, y);
+	}
 
 	let overlay = document.createElement("div");
 
@@ -328,13 +342,13 @@ function reload(){
 	height = settings.height;
 	isFirstClick = true;
 	isGameOver = false;
+	flags = [];
 	
 	setSmiley("🙂");
 	clearOverlay();
 	createGame(mines, width, height);
 	setBoardSize(width, height);
 	drawCells(width, height);
-	startTimer();
 	setDisplay(true, mines);
 }
 function clearOverlay(){
@@ -372,10 +386,21 @@ function getValue(x, y){
 function revealMines(){
 	for (let h = 0; h < height; h++) {
 		for (let w = 0; w < width; w++) {
+			const hasFlag = flagExist(w, h);
+
+			// if a flag was not placed on a bomb, display it
+			if(hasFlag && game[h][w] != 9){
+				getCell(w, h).style.backgroundColor = "red";
+			}
+
 			if(unlocked[h][w]){
 				continue;
 			}
 			if(game[h][w] != 9){
+				continue;
+			}
+			// dont show the bomb where the player has placed a flag
+			if(hasFlag){
 				continue;
 			}
 
