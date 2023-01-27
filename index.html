@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Minesweeper</title>
+
+<link rel="stylesheet" href="css/style.css"></link>
+<script src="js/main.js"></script>
+
+<body onload="init()">
+	<!-- oncontextmenu return false to prevent not being able to right click -->
+	<div oncontextmenu="return false;" class="game-container">
+		<div class="game">
+			<div class="game-header">
+				<div class="counter">
+					<div class="counter-background">
+						888
+					</div>
+					<div class="counter-value" id="counter-left-val">
+						456
+					</div>
+				</div>
+				<div class="smiley" id="smiley">🙂</div>
+				<div class="counter">
+					<div class="counter-background">
+						888
+					</div>
+					<div class="counter-value" id="counter-right-val">
+						123
+					</div>
+				</div>
+			</div>
+			<div class="game-body" id="game-body"></div>
+		</div>
+	</div>
+	<select id="difficulty">
+		<option value="0">beginner</option>
+		<option value="1">intermediate</option>
+		<option value="2">expert</option>
+	</select>
+</body>
+</html>

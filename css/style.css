@@ -1,0 +1,95 @@
+@font-face {
+    font-family: DSEG7ClassicBold;
+    src: url(DSEG7Classic-Bold.woff) format('woff');;
+}
+body{
+    background-color: #f3f3f3;
+}
+.game{
+    width: fit-content;
+    height: fit-content;
+    background-color: silver;
+    border-width: 2px;
+    border-color: white gray gray white;
+    border-style: solid;
+    padding: 4px;
+}
+.game-header{
+    height: fit-content;
+    background-color: silver;
+    border-width: 2px;
+    border-color: grey white white gray;
+    border-style: solid;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 2px;
+}
+.game-body{
+    border-width: 2px;
+    border-color: grey white white gray;
+    border-style: solid;
+    margin-top: 5px;
+    background: #c0c0c0;
+    background-image:
+    linear-gradient(to right, grey 1px, transparent 1px),
+    linear-gradient(to bottom, grey 1px, transparent 1px);
+    background-size: 20px 20px;
+    background-origin: border-box; /* prevent extra row of pixels at top */
+    position: relative;
+    user-select: none;
+}
+.counter{
+    background-color: black;
+    color: red;
+    z-index: 1;
+    font-family: DSEG7ClassicBold;
+    height: fit-content;
+    border-width: 0.8px;
+    border-color: grey white white gray;
+    border-style: solid;
+}
+.counter-background{
+    position: absolute;
+    z-index: -1;
+    color: #630000;
+    /* background: radial-gradient(#870000 0.3px, transparent 0px) 0 0 / 1px 1px; */
+    /* 7 segment background dots */
+    background: repeating-conic-gradient(#000000 0% 25%, #670000 25% 50%);
+    background-size: 1.5px 1.5px;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.smiley{
+    width: 15.5px;
+    height: 15.5px;
+    border-width: 1.5px;
+    border-color: white gray gray white;
+    border-style: solid;
+    font-size: 11px;
+    text-align: center;
+    user-select: none;
+}
+.cell {
+    border-width: 1.5px;
+    border-color: white gray gray white;
+    border-style: solid;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    position: absolute;
+}
+.overlay{
+    position: absolute;
+    text-align: center;
+    font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    font-weight: 900;
+}
+.button-pressed{
+    border-width: 1.5px;
+    border-color: gray rgba(255, 255, 255, 0) rgba(255, 255, 255, 0) gray;
+    border-style: solid;
+}
+#difficulty{
+    margin-top: 5px;
+}
