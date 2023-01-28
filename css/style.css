@@ -93,3 +93,10 @@ body{
 #difficulty{
     margin-top: 5px;
 }
+#custom-select{
+    display: none; /* start hidden */
+    flex-direction: column;
+}
+.custom-input{
+    width: 100px;
+}

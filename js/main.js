@@ -26,6 +26,14 @@ function init(){
 	document.getElementById("smiley").addEventListener("mouseup", onSmileyMouseUp);
 	document.getElementById("smiley").addEventListener("mouseleave", onSmileyMouseLeave);
 
+	document.getElementById("custom-width").addEventListener("input", onCusomChange);
+	document.getElementById("custom-height").addEventListener("input", onCusomChange);
+	document.getElementById("custom-mines").addEventListener("input", onCusomChange);
+
+	reload();
+}
+function onCusomChange(){
+	checkCustomMineCount();
 	reload();
 }
 function onGameMouseUp(ev){
@@ -59,12 +67,16 @@ function onGameMouseMove(ev){
 
 	if(lastCellSelected != null){
 		lastCellSelected.classList.remove("button-pressed");
+		setSmiley("🙂");
 	}
 
 	if(cell == null){
 		return;
 	}
 	if(unlocked[point.y][point.x]){
+		return;
+	}
+	if(flagExist(point.x, point.y)){
 		return;
 	}
 	
@@ -74,6 +86,9 @@ function onGameMouseMove(ev){
 }
 function onDifficultyChange(ev){
 	difficulty = parseInt(ev.currentTarget.value);
+
+	toggleSelectDisplay(difficulty == 3);
+
 	reload();
 }
 function onSmileyMouseDown(ev){
@@ -111,8 +126,11 @@ function check(button, x, y){
 		if(unlocked[y][x]){
 			return;
 		}
+		if(flagExist(x, y)){
+			return;
+		}
 
-		// first click cannot be a bomb
+		// first click cannot be a mine
 		if(isFirstClick && game[y][x] == 9){
 			createGame(mines, width, height);
 			check(button, x, y);
@@ -226,7 +244,7 @@ function createCell(x, y){
 
 	return el;
 }
-// < 9 number | 9 exploded bomb | 10 bomb | 11 flag
+// < 9 number | 9 exploded mine | 10 mine | 11 flag
 function createIcon(x, y, value = game[y][x]){
 	getCell(x, y).remove();
 
@@ -345,11 +363,13 @@ function reload(){
 	flags = [];
 	
 	setSmiley("🙂");
+	endTimer();
 	clearOverlay();
 	createGame(mines, width, height);
 	setBoardSize(width, height);
 	drawCells(width, height);
 	setDisplay(true, mines);
+	setDisplay(false, "000");
 }
 function clearOverlay(){
 	let body = document.getElementById("game-body");
@@ -388,7 +408,7 @@ function revealMines(){
 		for (let w = 0; w < width; w++) {
 			const hasFlag = flagExist(w, h);
 
-			// if a flag was not placed on a bomb, display it
+			// if a flag was wrongly placed, show it
 			if(hasFlag && game[h][w] != 9){
 				getCell(w, h).style.backgroundColor = "red";
 			}
@@ -399,7 +419,7 @@ function revealMines(){
 			if(game[h][w] != 9){
 				continue;
 			}
-			// dont show the bomb where the player has placed a flag
+			// dont show the mine where the player has placed a flag
 			if(hasFlag){
 				continue;
 			}
@@ -407,6 +427,18 @@ function revealMines(){
 			createIcon(w, h, 10);
 		}
 	}
+}
+function checkCustomMineCount(){
+	let el = document.getElementById("custom-mines");
+	let mineCount = parseInt(el.value);
+	const maxAllowed = Math.floor((customWidth() * customHeight()) * 0.98);
+
+	// mines can only cover 98% of the game
+	if(mineCount > maxAllowed){
+		mineCount = maxAllowed;
+	}
+
+	el.value = mineCount;
 }
 function gameOver(){
 	isGameOver = true;
@@ -435,7 +467,12 @@ function difficultyToSettings(d){
 			return {width: 16, height: 16, mines: 40};
 		case 2:
 			return {width: 30, height: 16, mines: 99};
-		// TODO: fetch custom settings here
+		case 3:
+			return {
+				width: customWidth(),
+				height: customHeight(),
+				mines: customMines()
+			};
 	}
 }
 function getColorFromValue(value){
@@ -445,9 +482,21 @@ function getColorFromValue(value){
 		case 3: return "red";
 		case 4: return "navy";
 		case 5: return "maroon";
-		case 6: return "cyan";
+		case 6: return "darkcyan";
 		case 7: return "black";
 		case 8: return "darkgray";
 		default: return "white"; // should never be used
 	}
+}
+function customWidth(){
+	return parseInt(document.getElementById("custom-width").value);
+}
+function customHeight(){
+	return parseInt(document.getElementById("custom-height").value);
+}
+function customMines(){
+	return parseInt(document.getElementById("custom-mines").value);
+}
+function toggleSelectDisplay(state){
+	document.getElementById("custom-select").style.display = (state) ? "flex" : "none";
 }
