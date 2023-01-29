@@ -1,6 +1,10 @@
 @font-face {
     font-family: DSEG7ClassicBold;
-    src: url(DSEG7Classic-Bold.woff) format('woff');;
+    src: url(DSEG7Classic-Bold.woff) format('woff');
+}
+@font-face{
+    font-family: Minesweeper;
+    src: url(Minesweeper.woff) format('woff');
 }
 body{
     background-color: #f3f3f3;
@@ -82,7 +86,10 @@ body{
 .overlay{
     position: absolute;
     text-align: center;
+}
+.overlay-span{
     font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    font-family: Minesweeper;
     font-weight: 900;
 }
 .button-pressed{

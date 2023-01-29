@@ -122,6 +122,10 @@ function checkFinished(){
 	return true;
 }
 function check(button, x, y){
+	if(getValue(x, y) == 99){
+		return;
+	}
+
 	if(button == 0){ // left button
 		if(unlocked[y][x]){
 			return;
@@ -256,12 +260,16 @@ function createIcon(x, y, value = game[y][x]){
 	if(flagExist(x, y)){
 		removeFlag(x, y);
 	}
+	if(value == 0){
+		return;
+	}
 
 	let overlay = document.createElement("div");
+	let span = document.createElement("span");
 
 	if(value < 9 && value != 0){
-		overlay.innerText = value;
-		overlay.style.color = getColorFromValue(value);
+		span.innerText = value;
+		span.style.color = getColorFromValue(value);
 	}
 	else if(value == 9){
 		overlay.innerText = "💣";
@@ -283,6 +291,9 @@ function createIcon(x, y, value = game[y][x]){
 	overlay.style.top = `${y * CELLSIZE}px`;
 	overlay.setAttribute("class", "overlay");
 	overlay.setAttribute("id", `${x}-${y}`);
+
+	span.setAttribute("class", "overlay-span");
+	overlay.appendChild(span);
 
 	document.getElementById("game-body").appendChild(overlay);
 }

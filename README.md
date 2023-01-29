@@ -2,7 +2,7 @@
 
 ## description
 A recreation of the classic minesweeper written in JavaScript
+Font made with FontForge
 
 ## TODO
-- find a better font for the numbers
 - better images/svg for the mine and flag
