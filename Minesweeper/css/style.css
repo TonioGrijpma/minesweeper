@@ -9,6 +9,10 @@
 body{
     background-color: #f3f3f3;
 }
+.game-container{
+    width: fit-content;
+    overflow: hidden;
+}
 .game{
     width: fit-content;
     height: fit-content;
@@ -17,6 +21,43 @@ body{
     border-color: white gray gray white;
     border-style: solid;
     padding: 4px;
+}
+.options-header{
+    position: relative;
+    background-color: #d4d0c8;
+    height: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    padding: 0px 5px;
+}
+.header-game-option{
+    z-index: 10;
+    background-color: #d4d0c8;
+    position: absolute;
+    top: 20px;
+    padding: 5px;
+    height: 150px;
+}
+.header-game-option input, .header-game-option select{
+    border-width: 2px;
+    border-color: white gray gray white;
+    border-style: solid;
+    background-color: lightgray;
+    width: 100%;
+    box-sizing: border-box;
+}
+.header-text-container{
+    padding: 0px 5px;
+}
+.header-text-container:hover{
+    background-color: #a3a3a3;
+    cursor: pointer;
+}
+.header-text{
+    font-size: 13px;
+    display: block;
 }
 .game-header{
     height: fit-content;
@@ -106,4 +147,7 @@ body{
 }
 .custom-input{
     width: 100px;
+}
+.hidden{
+    visibility: hidden;
 }

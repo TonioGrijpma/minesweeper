@@ -4,12 +4,50 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Minesweeper</title>
 
-<link rel="stylesheet" href="css/style.css"></link>
-<script src="js/main.js"></script>
+<link rel="stylesheet" href="Minesweeper/css/style.css"></link>
+<script src="Minesweeper/js/main.js"></script>
 
-<body onload="init()">
+<body>
+	<div id="ms1"></div>
+	
+	<script>
+		document.addEventListener("DOMContentLoaded", function(){
+			new Minesweeper("ms1");
+		})	
+	</script>
+</body>
+</html>
+
+
+<template id="minesweeper-template">
 	<!-- oncontextmenu return false to prevent not being able to right click -->
 	<div oncontextmenu="return false;" class="game-container">
+		<div class="options-header">
+			<div class="header-text-container">
+				<span id="header-game" class="header-text">Game</span>
+			</div>
+			<div class="header-text-container">
+				<span class="header-text">Help</span>
+			</div>
+
+			<div id="header-game-option" class="header-game-option hidden">
+				<select id="difficulty">
+					<option value="0">beginner</option>
+					<option value="1">intermediate</option>
+					<option value="2">expert</option>
+					<option value="3">custom</option>
+				</select>
+				<div id="custom-select">
+					<label for="custom-width">Width:</label>
+					<input id="custom-width" class="custom-input" type="number" value="15" min="1" max="200" />
+					<label for="custom-height">Height:</label>
+					<input id="custom-height" class="custom-input" type="number" value="15" min="1" max="200" />
+					<label for="custom-mines">Mines:</label>
+					<input id="custom-mines" class="custom-input" type="number" value="45" min="1" max="200" />
+				</div>
+			</div>
+		</div>
+
 		<div class="game">
 			<div class="game-header">
 				<div class="counter">
@@ -17,7 +55,7 @@
 						888
 					</div>
 					<div class="counter-value" id="counter-left-val">
-						456
+						000
 					</div>
 				</div>
 				<div class="smiley" id="smiley">🙂</div>
@@ -33,19 +71,4 @@
 			<div class="game-body" id="game-body"></div>
 		</div>
 	</div>
-	<select id="difficulty">
-		<option value="0">beginner</option>
-		<option value="1">intermediate</option>
-		<option value="2">expert</option>
-		<option value="3">custom</option>
-	</select>
-	<div id="custom-select">
-		<label for="custom-width">Width:</label>
-		<input id="custom-width" class="custom-input" type="number" value="15" min="1" max="200" />
-		<label for="custom-height">Height:</label>
-		<input id="custom-height" class="custom-input" type="number" value="15" min="1" max="200" />
-		<label for="custom-mines">Mines:</label>
-		<input id="custom-mines" class="custom-input" type="number" value="45" min="1" max="200" />
-	</div>
-</body>
-</html>
+</template>
