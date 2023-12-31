@@ -12,7 +12,9 @@
 	
 	<script>
 		document.addEventListener("DOMContentLoaded", function(){
-			new Minesweeper("ms1");
+			const game = new Minesweeper("ms1");
+			document.getElementById("ms1").appendChild(game.parentEl);
+			game.reload();
 		})	
 	</script>
 </body>

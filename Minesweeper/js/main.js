@@ -35,13 +35,10 @@ class Minesweeper{
 		parent.querySelector("#custom-height").addEventListener("input", this.onCusomChange.bind(this));
 		parent.querySelector("#custom-mines").addEventListener("input", this.onCusomChange.bind(this));
 	
-		parent.querySelector("#header-game").addEventListener("mouseover", this.openGameContextMenu);
-
-		document.getElementById(id).appendChild(parent);
+		parent.querySelector("#header-game").addEventListener("mouseover", this.openGameContextMenu.bind(this));
 
 		this.parentEl = parent;
 		this.id = id;
-		this.reload();
 	}
 
 	onCusomChange(){
@@ -80,7 +77,7 @@ class Minesweeper{
 		let cell = this.getCell(point.x, point.y);
 	
 		if(this.lastCellSelected != null){
-			this.lastCellSelected.classList.remove("button-pressed");
+			this.lastCellSelected.classList.remove("minesweeper-button-pressed");
 			this.setSmiley("🙂");
 		}
 	
@@ -95,7 +92,7 @@ class Minesweeper{
 		}
 		
 		this.setSmiley("😮");
-		cell.classList.add("button-pressed");
+		cell.classList.add("minesweeper-button-pressed");
 		this.lastCellSelected = cell;
 	}
 	onDifficultyChange(ev){
@@ -109,10 +106,10 @@ class Minesweeper{
 		if(ev.button != 0){
 			return;
 		}
-		ev.currentTarget.classList.add("button-pressed");
+		ev.currentTarget.classList.add("minesweeper-button-pressed");
 	}
 	onSmileyMouseLeave(ev){
-		ev.currentTarget.classList.remove("button-pressed");
+		ev.currentTarget.classList.remove("minesweeper-button-pressed");
 	}
 	onSmileyMouseUp(ev){
 		if(ev.button != 0){
@@ -206,8 +203,17 @@ class Minesweeper{
 		}
 	}
 	getPointFromEvent(event){
-		let x = Math.floor((event.pageX - event.currentTarget.offsetLeft) / CELLSIZE);
-		let y = Math.floor((event.pageY - event.currentTarget.offsetTop) / CELLSIZE);
+		const offsetParent = event.currentTarget.offsetParent;
+		let offsetTop = 0;
+		let offsetLeft = 0;
+
+		// accounts for the window being in a absolute position
+		if(offsetParent != null){
+			offsetTop = offsetParent.offsetTop;
+			offsetLeft = offsetParent.offsetLeft;
+		}
+		let x = Math.floor((event.pageX - event.currentTarget.offsetLeft - offsetLeft) / CELLSIZE);
+		let y = Math.floor((event.pageY - event.currentTarget.offsetTop - offsetTop) / CELLSIZE);
 	
 		x = (x < 0) ? 0 : x;
 		y = (y < 0) ? 0 : y;
@@ -554,8 +560,8 @@ class Minesweeper{
 		this.parentEl.querySelector("#custom-select").style.display = (state) ? "flex" : "none";
 	}
 	openGameContextMenu(){
-		document.getElementById("header-game-option").classList.remove("hidden");
-		document.addEventListener("mousemove", closeGameContextMenu)
+		this.parentEl.querySelector("#header-game-option").classList.remove("hidden");
+		document.addEventListener("mousemove", closeGameContextMenu.bind(this))
 
 		function closeGameContextMenu(event){
 			const target = event.target;
@@ -571,7 +577,7 @@ class Minesweeper{
 				return;
 			}
 
-			document.getElementById("header-game-option").classList.add("hidden");
+			this.parentEl.querySelector("#header-game-option").classList.add("hidden");
 			document.removeEventListener("mousemove", closeGameContextMenu)
 		}
 		

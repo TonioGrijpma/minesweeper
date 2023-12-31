@@ -6,9 +6,6 @@
     font-family: Minesweeper;
     src: url(Minesweeper.woff) format('woff');
 }
-body{
-    background-color: #f3f3f3;
-}
 .game-container{
     width: fit-content;
     overflow: hidden;
@@ -24,7 +21,7 @@ body{
 }
 .options-header{
     position: relative;
-    background-color: #d4d0c8;
+    background-color: #c3c7cb; /* d4d0c8 */
     height: 20px;
     display: flex;
     flex-direction: row;
@@ -34,7 +31,7 @@ body{
 }
 .header-game-option{
     z-index: 10;
-    background-color: #d4d0c8;
+    background-color: #c3c7cb;
     position: absolute;
     top: 20px;
     padding: 5px;
@@ -52,8 +49,8 @@ body{
     padding: 0px 5px;
 }
 .header-text-container:hover{
-    background-color: #a3a3a3;
-    cursor: pointer;
+    background-color: #0000aa;
+    color: white;
 }
 .header-text{
     font-size: 13px;
@@ -87,7 +84,7 @@ body{
 .counter{
     background-color: black;
     color: red;
-    z-index: 1;
+    z-index: 0;
     font-family: DSEG7ClassicBold;
     height: fit-content;
     border-width: 0.8px;
@@ -133,7 +130,7 @@ body{
     font-family: Minesweeper;
     font-weight: 900;
 }
-.button-pressed{
+.minesweeper-button-pressed{
     border-width: 1.5px;
     border-color: gray rgba(255, 255, 255, 0) rgba(255, 255, 255, 0) gray;
     border-style: solid;
