@@ -580,6 +580,5 @@ class Minesweeper{
 			this.parentEl.querySelector("#header-game-option").classList.add("hidden");
 			document.removeEventListener("mousemove", closeGameContextMenu)
 		}
-		
 	}
 }

@@ -20,19 +20,18 @@
 </body>
 </html>
 
-
 <template id="minesweeper-template">
 	<!-- oncontextmenu return false to prevent not being able to right click -->
 	<div oncontextmenu="return false;" class="game-container">
 		<div class="options-header">
-			<div class="header-text-container">
-				<span id="header-game" class="header-text">Game</span>
+			<div class="header-text-container" id="header-game">
+				<span class="header-text"><span class="underline">G</span>ame</span>
 			</div>
 			<div class="header-text-container">
-				<span class="header-text">Help</span>
+				<span class="header-text"><span class="underline">H</span>elp</span>
 			</div>
 
-			<div id="header-game-option" class="header-game-option hidden">
+			<div id="header-game-option" class="header-game-option border-white-top-black-gray border-thin hidden">
 				<select id="difficulty">
 					<option value="0">beginner</option>
 					<option value="1">intermediate</option>
