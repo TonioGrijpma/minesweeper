@@ -75,6 +75,7 @@ class Minesweeper{
 	
 		const point = this.getPointFromEvent(ev);
 		let cell = this.getCell(point.x, point.y);
+		console.log(point.x, point.y)
 	
 		if(this.lastCellSelected != null){
 			this.lastCellSelected.classList.remove("minesweeper-button-pressed");
@@ -263,7 +264,7 @@ class Minesweeper{
 		el.style.left = `${x * CELLSIZE}px`;
 		el.style.top = `${y * CELLSIZE}px`;
 		el.setAttribute("class", "cell");
-		el.setAttribute("id", `${this.id}${x}${y}`);
+		el.setAttribute("id", `${this.id}${x}-${y}`);
 		el.innerHTML = "";
 	
 		return el;
@@ -310,7 +311,7 @@ class Minesweeper{
 		overlay.style.left = `${x * CELLSIZE}px`;
 		overlay.style.top = `${y * CELLSIZE}px`;
 		overlay.setAttribute("class", "overlay");
-		overlay.setAttribute("id", `${this.id}${x}${y}`);
+		overlay.setAttribute("id", `${this.id}${x}-${y}`);
 	
 		span.setAttribute("class", "overlay-span");
 		overlay.appendChild(span);
@@ -422,7 +423,7 @@ class Minesweeper{
 		return mines;
 	}
 	getCell(x, y){
-		return this.parentEl.querySelector(`#${this.id}${x}${y}`);
+		return this.parentEl.querySelector(`#${this.id}${x}-${y}`);
 	}
 	isMine(x, y){
 		return this.getValue(x, y) == 9;
