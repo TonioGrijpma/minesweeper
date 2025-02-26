@@ -1,4 +1,5 @@
 # Minesweeper
+![sample image](./Minesweeper/css/game.png)
 
 ## description
 A recreation of the classic minesweeper written in JavaScript.  
